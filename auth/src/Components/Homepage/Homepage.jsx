@@ -110,7 +110,7 @@ export default function Homepage() {
                                         document.getElementById("image"+index).classList.remove("bordered");
                                     }
                                 }} className="logincheck"/>
-                                <label htmlFor={"login" + index}> <img src={elem} width="150px" id={"image"+index}/></label>
+                                <label htmlFor={"login" + index}> <img src={elem} width="150px" id={"image"+index} className="selectImage"/></label>
                             </>
                             )
                         })

@@ -90,8 +90,8 @@ body{
 }
 
 .imageCont label{
-    width: 206px;
-    height: 206px;
+    width: 176px;
+    height: 176px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,4 +124,8 @@ body{
     font-weight: 600;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.selectImage{
+    border-radius: 5px;
 }
