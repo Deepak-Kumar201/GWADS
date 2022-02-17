@@ -1,0 +1,127 @@
+*{
+    transition: all 0.5s;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(0deg, #4cb963ff, #a0eadeff);
+}
+body{
+    overflow: hidden;
+}
+
+.formLogin{
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: all 0.5s;
+}
+
+.loginimageSelector{
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 100vw;
+    position: absolute;
+}
+
+.loginform{
+    background-color: var(--color5);
+    width: 450px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px var(--color4);
+}
+
+#username{
+    border: 2px solid var(--color3);
+    background-color: transparent;
+    width: 85%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 0px 10px;
+    color: white;
+    /* font-weight: bolder; */
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#username:focus{
+    outline: none;
+}
+
+#login{
+    border: 2px solid var(--color3);
+    cursor: pointer;
+    width: 85%;
+    height: 40px;
+    background-color: var(--color4);
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-weight: bolder;
+    color: white;
+}
+
+.createNew{
+    color: white;
+}
+
+.imageCont{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.imageCont label{
+    width: 206px;
+    height: 206px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageCont img{
+    border-radius: 10px;
+}
+
+.bordered{
+    border: 3px solid var(--color5);
+    padding: 0px;
+    filter: drop-shadow(0px 0px 10px var(--color4));
+}
+
+.buttons{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.buttons button{
+    width: 130px;
+    border: 2px solid var(--color3);
+    height: 40px;
+    background-color: var(--color4);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+}
