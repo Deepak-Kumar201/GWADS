@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./style.css";
 import upload from "../../Firebase/Firebaseinit";
 
-export default function Images({ setShowImage, showImage }) {
+export default function Images({ setShowImage, showImage, history }) {
     const [uploaded, setuploaded] = useState([]);
     const [selectCount, setselectCount] = useState(0);
     const img = [
@@ -28,6 +28,8 @@ export default function Images({ setShowImage, showImage }) {
         "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/20-min.jpg?alt=media&token=3b249cd3-2108-4941-ad42-ea39ba7528f8",
         "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/21-min.jpg?alt=media&token=2405549b-1b9a-411b-9f36-56f3b40c2a71",
     ];
+
+    
 
     useEffect(() => {
         console.log(selectCount);
@@ -124,7 +126,9 @@ export default function Images({ setShowImage, showImage }) {
             return;
         } else {
             localStorage.setItem("jwttokken", data.jwttokken);
-            window.alert("SignUp Successfull");
+            // window.alert("SignUp Successfull");
+            history.push("/");
+
         }
     };
     if (!showImage) return <></>;

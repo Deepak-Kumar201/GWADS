@@ -1,15 +1,17 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 
-export default function Homepage() {
+export default function Homepage({history,setAlert,alertBody}) {
     const [images, setImages] = useState([]);
     const nextLogin = async (e)=>{
         console.log("object");
         e.preventDefault();
         const username = document.getElementById("username");
         if(username.value.trim().length == 0){
-            window.alert("Enter A valid username");
+            alertBody("Enter A valid username");
+            setAlert(true);
             return;
         }
         var data = await fetch("http://localhost:5000/api/image/generateRandom",{
@@ -22,7 +24,8 @@ export default function Homepage() {
         data = await data.json();
 
         if(data.error){
-            window.alert("Enter A valid Username");
+            alertBody("Enter A valid Username");
+            setAlert(true)
             return;
         }else{
             document.querySelector(".formLogin").style.left = "-100vw";
@@ -49,7 +52,9 @@ export default function Homepage() {
         }
         console.log(checked);
         if(checked.length != 5){
-            window.alert("Please Select 5 images");
+            alertBody("Please Select 5 images");
+            setAlert(true);
+            return;
         }
         window.localStorage.setItem("loginUser",username.value);
         window.localStorage.setItem("loginURL", checked);
@@ -68,9 +73,12 @@ export default function Homepage() {
         data = await data.json();
         console.log(data);
         if(data.error){
-            window.alert("Selected Images are not correct");
+            alertBody("Selected Images are not correct");
+            setAlert(true);
         }else{
-            window.alert("Login Successful");
+            localStorage.setItem("jwttokken", data.jwttokken);
+            // window.alert("Login Successful");
+            history.push("/");
         }
 
         window.localStorage.removeItem("loginUser");
@@ -88,9 +96,9 @@ export default function Homepage() {
                         placeholder="Username"
                     />
                     <input type="submit" value="Next" id="login" onClick={nextLogin}/>
-                    <a href="#" className="createNew">
+                    <Link to="signup" className="createNew">
                         Create New Account
-                    </a>
+                    </Link>
                 </form>
             </div>
             <div className="loginimageSelector">

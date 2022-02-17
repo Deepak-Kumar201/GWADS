@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Images from "./Images";
 import "./style.css";
 
-export default function SignUp() {
+export default function SignUp({history}) {
     const [showImage, setShowImage] = useState(false);
     const goahead = async (e)=>{
         e.preventDefault();
@@ -41,7 +42,7 @@ export default function SignUp() {
     }
     return (
         <div className="signuppage">
-            <Images showImage={showImage} setShowImage={setShowImage} />
+            <Images showImage={showImage} setShowImage={setShowImage} history={history}/>
             <form className="signupform">
                 <input
                     type="text"
@@ -60,6 +61,7 @@ export default function SignUp() {
                 <button className="nextsignup" onClick={goahead}>
                     Next
                 </button>
+                <Link to="/login" className="createNew">Already Have A Account!</Link>
             </form>
         </div>
     );
