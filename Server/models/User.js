@@ -5,6 +5,10 @@ const User = {
         required : true,
         unique : true
     },
+    name : {
+        type:String,
+        required:true
+    },
     authimages : {
         type : mongoose.Schema.Types.Array,
         required : true

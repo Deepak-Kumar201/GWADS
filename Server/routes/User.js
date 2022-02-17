@@ -7,6 +7,19 @@ const auth = require("../middleware/auth");
 
 const JWTSECRET = "Deepak Kumar is my name";
 
+router.post("/exists", async (req, resp) => {
+    try {
+        var oldUser = await User.findOne({ username: req.body.username });
+        if (oldUser) {
+            resp.status(400).send({ error: "User already exists" });
+            return;
+        }
+        resp.status(200).send({ success: "You can continue" });
+    } catch (error) {
+        resp.status(500).send({ error: "Please try again later!" });
+    }
+});
+
 router.post("/createuser", async (req, resp) => {
     try {
         var oldUser = await User.findOne({ username: req.body.username });
@@ -17,8 +30,8 @@ router.post("/createuser", async (req, resp) => {
 
         var imagesURL = req.body.imagesURL;
         var selectedImages = await Image.find({ URL: { $in: imagesURL } });
-        if(selectedImages.length != imagesURL.length){
-            resp.status(400).send({error:"Image not uploaded"});
+        if (selectedImages.length != imagesURL.length) {
+            resp.status(400).send({ error: "Image not uploaded" });
             return;
         }
         var imagesID = selectedImages.map((elem) => {
@@ -29,6 +42,7 @@ router.post("/createuser", async (req, resp) => {
         var newUser = new User({
             username: req.body.username,
             authimages: imagesID,
+            name : req.body.name
         });
 
         await newUser.save();
@@ -65,8 +79,8 @@ router.post("/login", async (req, resp) => {
         imagesID.sort();
         var equal = true;
 
-        for(var i = 0; i < userData.authimages.length; i++){
-            if(imagesID[i] != userData.authimages[i]) {
+        for (var i = 0; i < userData.authimages.length; i++) {
+            if (imagesID[i] != userData.authimages[i]) {
                 equal = false;
             }
         }
@@ -109,4 +123,4 @@ router.post("/auth", async (req, resp) => {
     }
 });
 
-module.exports = router
+module.exports = router;

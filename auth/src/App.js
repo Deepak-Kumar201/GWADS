@@ -1,11 +1,12 @@
 import './App.css';
-import Homepage from './Components/Homepage/Homepage';
+import Login from './Components/Login/Login';
 import Images from './Components/SignUp/Images';
+import SignUp from './Components/SignUp/SignUp';
 
 function App() {
     return (
         <div className="App">
-            <Images/>
+            <Login/>
         </div>
     );
 }

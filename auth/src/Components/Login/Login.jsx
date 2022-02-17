@@ -1,16 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import "./style.css";
-import img1 from "../Image/1-min.jpg"
-import img2 from "../Image/2-min.jpg"
-import img3 from "../Image/3-min.jpg"
-import img4 from "../Image/4-min.jpg"
-import img5 from "../Image/5-min.jpg"
-import img6 from "../Image/6-min.jpg"
-import img7 from "../Image/8-min.jpg"
 
 export default function Homepage() {
-    const [images, setImages] = useState([img1,img2,img3,img4,img5,img6,img7]);
+    const [images, setImages] = useState([]);
     const nextLogin = async (e)=>{
         console.log("object");
         e.preventDefault();
@@ -34,7 +27,7 @@ export default function Homepage() {
         }else{
             document.querySelector(".formLogin").style.left = "-100vw";
             document.querySelector(".loginimageSelector").style.left = "0px";
-            // setImages(data.ImageData);
+            setImages(data.ImageData);
         }
     }
 
@@ -55,6 +48,9 @@ export default function Homepage() {
             }
         }
         console.log(checked);
+        if(checked.length != 5){
+            window.alert("Please Select 5 images");
+        }
         window.localStorage.setItem("loginUser",username.value);
         window.localStorage.setItem("loginURL", checked);
         const bodydata = {
@@ -83,7 +79,7 @@ export default function Homepage() {
     }
 
     return (
-        <div className="container">
+        <div className="signuppage">
             <div className="formLogin">
                 <form className="loginform">
                     <input

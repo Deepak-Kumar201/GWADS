@@ -24,16 +24,20 @@ const storage = getStorage(app);
 
 const upload = async (type, e) => {
     e = document.getElementById(e);
-    const file = e.files[0];
-    var fileRef = ref(storage, file.name);
-    const metadata = {
-        contentType: type,
-    };
+    var arr = [];
+    for(var  i = 0; i < e.files.length; i++){
+        const file = e.files[i];
+        var fileRef = ref(storage, file.name);
+        const metadata = {
+            contentType: type,
+        };
 
-    await uploadBytesResumable(fileRef, file, metadata);
+        await uploadBytesResumable(fileRef, file, metadata);
 
-    const url = await getDownloadURL(fileRef);
-    return url;
+        const url = await getDownloadURL(fileRef);
+        arr.push(url);
+    }
+    return arr;
 };
 
 export default upload

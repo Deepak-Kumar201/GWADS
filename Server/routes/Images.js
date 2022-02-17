@@ -5,11 +5,14 @@ const User = require("../models/User");
 
 router.post("/upload", async (req, resp) => {
     try {
-        var data = {
-            URL: req.body.URL,
-        };
-        var img = new Image(data);
-        await img.save();
+        var arr = req.body.URL
+        for(var i of arr){
+            var data = {
+                URL: i,
+            };
+            var img = new Image(data);
+            await img.save();
+        }
         resp.send({ Success: "Images Uploaded" });
     } catch (error) {
         resp.status(500).send({ error: "Please try again later!" });

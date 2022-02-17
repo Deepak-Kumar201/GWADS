@@ -1,81 +1,133 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./style.css";
-import upload from "../../Firebase/Firebaseinit"
+import upload from "../../Firebase/Firebaseinit";
 
-export default function Images() {
+export default function Images({ setShowImage, showImage }) {
     const [uploaded, setuploaded] = useState([]);
-    const [selectCount, setselectCount] = useState(0)
+    const [selectCount, setselectCount] = useState(0);
     const img = [
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F1-min.jpg?alt=media&token=1d80f523-f578-43cb-ac01-9bf4142dd220",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F10-min.jpg?alt=media&token=246841c4-0c51-491f-baac-dac029d38072",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F11-min.jpg?alt=media&token=0ab48f35-599a-43a3-9794-cc352d41c60b",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F12-min.jpg?alt=media&token=94f4baae-717d-4e86-a895-716e62221b27",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F13-min.jpg?alt=media&token=9b3212b6-eb91-4187-aaf6-48ef0641d259",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F14-min.jpg?alt=media&token=770aea62-7d25-462e-853d-2d9531f0f7aa",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F15-min.jpg?alt=media&token=ab98f54d-eea8-4d11-8933-4b35c7f6721c",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F16-min.jpg?alt=media&token=6cbf7809-7e7b-4155-aebb-79416d7056ae",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F17-min.jpg?alt=media&token=d1e328b1-33e6-4e8e-b925-2c73f636f26b",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F18-min.jpg?alt=media&token=59886b44-6ed5-47d6-8d6d-ac213650ce07",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F19-min.jpg?alt=media&token=3aac7c84-d195-487f-8c32-7dbbaf98d475",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F2-min.jpg?alt=media&token=8a1ca8a8-afb8-4b95-bfa9-429ac87de225",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F20-min.jpg?alt=media&token=cd22365e-8b3e-4a02-a131-14b0cb2034b6",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F21-min.jpg?alt=media&token=615f74ea-a0bf-490b-a52d-52ca3b34a5c9",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F3-min.jpg?alt=media&token=3a9e9368-1c8f-4aeb-acbc-7d16e2bf673b",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F4-min.jpg?alt=media&token=a4dc4502-bb2a-4f92-94c0-4a58b765867a",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F5-min.jpg?alt=media&token=c790094e-6ff4-42fb-8b36-b8d11b1f4640",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F6-min.jpg?alt=media&token=696cb89e-4f45-4b41-bdd1-141c722287e8",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F8-min.jpg?alt=media&token=3c9fc734-df80-41a9-a2cf-599da6ae8361",
-        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/Default%2F9-min.jpg?alt=media&token=c3b8c0cc-3119-4f20-97ca-801707c889a6",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/1-min.jpg?alt=media&token=ace94505-8c29-404c-8553-ce34832be7ae",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/2-min.jpg?alt=media&token=9d42390d-25a6-4885-91d4-4ab9cc538d35",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/3-min.jpg?alt=media&token=651d0235-526d-467c-b69f-6a646980864a",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/4-min.jpg?alt=media&token=24431009-901c-43e6-bb7c-2c41c482d74a",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/5-min.jpg?alt=media&token=9f80a066-141a-4e87-b0f2-f737fd2e94e5",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/6-min.jpg?alt=media&token=48e70fa6-66d8-4ca1-a95a-59f5d46844e6",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/8-min.jpg?alt=media&token=1dfce4b1-07e0-4301-b551-09c0331dabb0",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/9-min.jpg?alt=media&token=75d44b74-bd6d-4242-b967-4dc2464334a8",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/10-min.jpg?alt=media&token=05a2f242-77dd-460c-a116-82d75edef3ed",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/11-min.jpg?alt=media&token=7f57104d-9a10-4298-a591-71bf8e3f2d33",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/12-min.jpg?alt=media&token=cb5285c3-875b-477e-a5f2-ed8025a9c653",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/13-min.jpg?alt=media&token=f55e657e-89cf-4ad2-9cea-bb5a96f63bb9",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/14-min.jpg?alt=media&token=0c6a2c1f-a3a8-4c76-8199-1e19033f438a",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/15-min.jpg?alt=media&token=4a8d2e94-3781-4b7b-b99a-de426950c9c7",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/16-min.jpg?alt=media&token=7118b50c-06ac-451d-aedc-4ed282620d1c",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/17-min.jpg?alt=media&token=0207c92c-0402-43d3-b86d-804d8b2e7939",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/18-min.jpg?alt=media&token=3d9b4099-e532-484e-8297-e350430a8932",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/19-min.jpg?alt=media&token=1acaf770-aa7a-4242-840b-f0adf44fccf3",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/20-min.jpg?alt=media&token=3b249cd3-2108-4941-ad42-ea39ba7528f8",
+        "https://firebasestorage.googleapis.com/v0/b/gwads-76b81.appspot.com/o/21-min.jpg?alt=media&token=2405549b-1b9a-411b-9f36-56f3b40c2a71",
     ];
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(selectCount);
-    }, [selectCount])
+    }, [selectCount]);
 
-    const addimage = async ()=>{
+    const addimage = async () => {
         var fileInput = document.getElementById("uploadimages");
         var label = document.getElementById("uploadLabel");
         if (fileInput.files.length > 0) {
-            fileInput.setAttribute("disabled",true);
+            if (fileInput.files.length > 5) {
+                window.alert("Cannot Upload more then 5 Items");
+                return;
+            }
+            for (var i = 0; i < fileInput.files.length; i++) {
+                if (
+                    fileInput.files[i].name.endsWith(".jpg") ||
+                    fileInput.files[i].name.endsWith(".jpeg") ||
+                    fileInput.files[i].name.endsWith(".png")
+                );
+                else {
+                    window.alert(
+                        "Cover image foramt should be in jpg, png or jpeg"
+                    );
+                    return;
+                }
+            }
+
+            fileInput.setAttribute("disabled", true);
             label.innerHTML = `
                 <div class="spinner-border text-light" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             `;
-            if (
-                fileInput.files[0].name.endsWith(".jpg") ||
-                fileInput.files[0].name.endsWith(".jpeg") ||
-                fileInput.files[0].name.endsWith(".png")
-            );
-            else {
-                window.alert(
-                    "Cover image foramt should be in jpg, png or jpeg"
-                );
-                return;
-            }
 
             console.log("Uploading image");
             const img = await upload("image/jpg", "uploadimages");
             console.log(img);
-            
+
+            const bodydata = {
+                URL: img,
+            };
+
+            var data = await fetch("http://localhost:5000/api/image/upload", {
+                method: "POST",
+                body: JSON.stringify(bodydata),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            data = await data.json();
+            if (data.error) {
+                window.alert(data.error);
+                label.innerHTML = "Upload";
+                fileInput.removeAttribute("disabled");
+                return;
+            }
+
             setuploaded([...uploaded, img]);
             label.innerHTML = "Upload";
-            fileInput.removeAttribute("disabled")
+            fileInput.removeAttribute("disabled");
         }
-    }
+    };
 
+    const createAccount = async () => {
+        if (selectCount < 5) {
+            window.alert("Select 5 images");
+            return;
+        }
 
-    const createAccount = ()=>{
         const elem = document.getElementsByClassName("logincheck");
         var checked = [];
-        for(var i of elem){
-            if(i.checked){
+        for (var i of elem) {
+            if (i.checked) {
                 checked.push(i.getAttribute("url"));
             }
         }
-        console.log(checked);
-    }
+
+        const bodydata = {
+            username: document.getElementById("signupuname").value.trim(),
+            name: document.getElementById("signupname").value.trim(),
+            imagesURL: checked,
+        };
+        console.log(bodydata);
+        var data = await fetch("http://localhost:5000/api/user/createuser", {
+            method: "POST",
+            body: JSON.stringify(bodydata),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        data = await data.json();
+        if (data.error) {
+            window.alert(data.error);
+            return;
+        } else {
+            localStorage.setItem("jwttokken", data.jwttokken);
+            window.alert("SignUp Successfull");
+        }
+    };
+    if (!showImage) return <></>;
 
     return (
         <div className="uploadImage">
@@ -94,8 +146,10 @@ export default function Images() {
                                             url={elem}
                                             onChange={(e) => {
                                                 if (e.target.checked) {
-                                                    if(selectCount >= 5){
-                                                        window.alert("You can select max 5 images");
+                                                    if (selectCount >= 5) {
+                                                        window.alert(
+                                                            "You can select max 5 images"
+                                                        );
                                                         e.target.checked = false;
                                                         return;
                                                     }
@@ -106,7 +160,9 @@ export default function Images() {
                                                         .classList.add(
                                                             "bordered"
                                                         );
-                                                    setselectCount(selectCount + 1);
+                                                    setselectCount(
+                                                        selectCount + 1
+                                                    );
                                                 } else {
                                                     document
                                                         .getElementById(
@@ -115,8 +171,9 @@ export default function Images() {
                                                         .classList.remove(
                                                             "bordered"
                                                         );
-                                                    setselectCount(selectCount - 1);
-
+                                                    setselectCount(
+                                                        selectCount - 1
+                                                    );
                                                 }
                                             }}
                                             className="logincheck"
@@ -152,8 +209,10 @@ export default function Images() {
                                         url={elem}
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                if(selectCount >= 5){
-                                                    window.alert("You can select max 5 images");
+                                                if (selectCount >= 5) {
+                                                    window.alert(
+                                                        "You can select max 5 images"
+                                                    );
                                                     e.target.checked = false;
 
                                                     return;
@@ -163,8 +222,7 @@ export default function Images() {
                                                         "aimage" + index
                                                     )
                                                     .classList.add("bordered");
-                                                    setselectCount(selectCount + 1);
-
+                                                setselectCount(selectCount + 1);
                                             } else {
                                                 document
                                                     .getElementById(
@@ -173,8 +231,7 @@ export default function Images() {
                                                     .classList.remove(
                                                         "bordered"
                                                     );
-                                                    setselectCount(selectCount - 1);
-
+                                                setselectCount(selectCount - 1);
                                             }
                                         }}
                                         className="logincheck"
@@ -195,16 +252,28 @@ export default function Images() {
                 </div>
             </div>
             <div className="uploadSave">
-                <input
-                    type="file"
-                    id="uploadimages"
-                    style={{ display: "none" }}
-                    onChange={addimage}
-                />
-                <label className="imgbuttonsLab" htmlFor="uploadimages" id="uploadLabel">
-                    Upload
-                </label>
-                <button className="imgbuttons" onClick={createAccount}>Create</button>
+                <button className="imgbuttons" onClick={()=>{setShowImage(false)}}>
+                    Close
+                </button>
+                <div style={{display:"flex"}}>
+                    <input
+                        type="file"
+                        id="uploadimages"
+                        style={{ display: "none" }}
+                        onChange={addimage}
+                        multiple={true}
+                    />
+                    <label
+                        className="imgbuttonsLab"
+                        htmlFor="uploadimages"
+                        id="uploadLabel"
+                    >
+                        Upload
+                    </label>
+                    <button className="imgbuttons" onClick={createAccount}>
+                        Create
+                    </button>
+                </div>
             </div>
         </div>
     );
