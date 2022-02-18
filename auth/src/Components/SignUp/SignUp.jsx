@@ -4,21 +4,23 @@ import { Link } from "react-router-dom";
 import Images from "./Images";
 import "./style.css";
 
-export default function SignUp({history}) {
+export default function SignUp({history,setAlert,alertBody}) {
     const [showImage, setShowImage] = useState(false);
     const goahead = async (e)=>{
         e.preventDefault();
         var name = document.getElementById("signupname");
         var nameval = name.value.trim();
         if(nameval.length < 3){
-            window.alert("Enter Correct Name");
+            alertBody("Enter Correct Name");
+            setAlert(true);
             return;
         }
 
         var elem = document.getElementById("signupuname");
         var val = elem.value.trim();
         if(val.length < 3){
-            window.alert("Username must be greater then 3");
+            alertBody("Username must be greater then 3");
+            setAlert(true);
             return;
         }
         const bodydata = {
@@ -33,7 +35,8 @@ export default function SignUp({history}) {
         })
         data = await data.json();
         if(data.error){
-            window.alert("Username not avilable");
+            alertBody("Username not avilable");
+            setAlert(true);
             return;
         }else{
             setShowImage(true);
@@ -42,7 +45,7 @@ export default function SignUp({history}) {
     }
     return (
         <div className="signuppage">
-            <Images showImage={showImage} setShowImage={setShowImage} history={history}/>
+            <Images showImage={showImage} setShowImage={setShowImage} history={history} setAlert={setAlert} alertBody={alertBody} />
             <form className="signupform">
                 <input
                     type="text"

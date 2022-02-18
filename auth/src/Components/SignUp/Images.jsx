@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./style.css";
 import upload from "../../Firebase/Firebaseinit";
 
-export default function Images({ setShowImage, showImage, history }) {
+export default function Images({ setShowImage, showImage, history,setAlert,alertBody }) {
     const [uploaded, setuploaded] = useState([]);
     const [selectCount, setselectCount] = useState(0);
     const img = [
@@ -40,7 +40,8 @@ export default function Images({ setShowImage, showImage, history }) {
         var label = document.getElementById("uploadLabel");
         if (fileInput.files.length > 0) {
             if (fileInput.files.length > 5) {
-                window.alert("Cannot Upload more then 5 Items");
+                alertBody("Cannot Upload more then 5 Items");
+                setAlert(true);
                 return;
             }
             for (var i = 0; i < fileInput.files.length; i++) {
@@ -50,9 +51,10 @@ export default function Images({ setShowImage, showImage, history }) {
                     fileInput.files[i].name.endsWith(".png")
                 );
                 else {
-                    window.alert(
+                    alertBody(
                         "Cover image foramt should be in jpg, png or jpeg"
                     );
+                    setAlert(true);
                     return;
                 }
             }
@@ -81,7 +83,8 @@ export default function Images({ setShowImage, showImage, history }) {
             });
             data = await data.json();
             if (data.error) {
-                window.alert(data.error);
+                alertBody(data.error);
+                setAlert(true);
                 label.innerHTML = "Upload";
                 fileInput.removeAttribute("disabled");
                 return;
@@ -95,7 +98,8 @@ export default function Images({ setShowImage, showImage, history }) {
 
     const createAccount = async () => {
         if (selectCount < 5) {
-            window.alert("Select 5 images");
+            alertBody("Select 5 images");
+            setAlert(true);
             return;
         }
 
@@ -122,14 +126,16 @@ export default function Images({ setShowImage, showImage, history }) {
         });
         data = await data.json();
         if (data.error) {
-            window.alert(data.error);
+            alertBody(data.error);
+            setAlert(true);
             return;
         } else {
             localStorage.setItem("jwttokken", data.jwttokken);
             // window.alert("SignUp Successfull");
             history.push("/");
-
         }
+        window.location.reload();
+
     };
     if (!showImage) return <></>;
 
@@ -151,10 +157,11 @@ export default function Images({ setShowImage, showImage, history }) {
                                             onChange={(e) => {
                                                 if (e.target.checked) {
                                                     if (selectCount >= 5) {
-                                                        window.alert(
+                                                        e.target.checked = false;
+                                                        alertBody(
                                                             "You can select max 5 images"
                                                         );
-                                                        e.target.checked = false;
+                                                        setAlert(true);
                                                         return;
                                                     }
                                                     document
@@ -214,10 +221,11 @@ export default function Images({ setShowImage, showImage, history }) {
                                         onChange={(e) => {
                                             if (e.target.checked) {
                                                 if (selectCount >= 5) {
-                                                    window.alert(
+                                                    e.target.checked = false;
+                                                    alertBody(
                                                         "You can select max 5 images"
                                                     );
-                                                    e.target.checked = false;
+                                                    setAlert(true);
 
                                                     return;
                                                 }
