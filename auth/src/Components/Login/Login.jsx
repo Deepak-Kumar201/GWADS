@@ -83,7 +83,7 @@ export default function Homepage({history,setAlert,alertBody}) {
 
         window.localStorage.removeItem("loginUser");
         window.localStorage.removeItem("loginURL");
-        window.location.reload();
+        if(!data.error)window.location.reload();
     }
 
     return (

@@ -130,3 +130,27 @@ input:focus{
     border-radius: 5px;
     box-shadow: 0px 0px 20px var(--color4);
 }
+
+
+@media screen and (max-width : 500px) {
+    .signupform{
+        width: 350px;
+    }
+    .selectImage{
+        width: 100px;
+    }
+    .uploadCont label{
+        width: 106px;
+        height: 106px;
+    }
+    .imgbuttons,.imgbuttonsLab{
+        width: 75px;
+        font-size: 12px;
+        height: 35px;
+        margin-left: 10px;
+    }
+    .leftmonst{
+        margin-left: 0px;
+    }
+    
+}

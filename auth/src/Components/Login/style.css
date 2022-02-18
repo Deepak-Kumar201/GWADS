@@ -83,7 +83,7 @@ body{
 .imageCont{
     width: 90%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: auto;
     margin-top: 30px;
     flex-wrap: wrap;
@@ -128,4 +128,17 @@ body{
 
 .selectImage{
     border-radius: 5px;
+}
+
+@media screen and (max-width : 500px) {
+    .loginform{
+        width: 350px;
+    }
+    .imageCont label{
+        width: 126px;
+        height: 126px;
+    }
+    .buttons{
+        width: 100%;
+    }
 }

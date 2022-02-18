@@ -137,10 +137,10 @@ export default function Images({ setShowImage, showImage, history,setAlert,alert
         window.location.reload();
 
     };
-    if (!showImage) return <></>;
+    // if (!showImage) return <></>;
 
     return (
-        <div className="uploadImage">
+        <div className="uploadImage" style={{top:!showImage?"-100vh":"10%"}}>
             <div className="signUpimages">
                 {uploaded.length != 0 ? (
                     <div>
@@ -264,7 +264,7 @@ export default function Images({ setShowImage, showImage, history,setAlert,alert
                 </div>
             </div>
             <div className="uploadSave">
-                <button className="imgbuttons" onClick={()=>{setShowImage(false)}}>
+                <button className="imgbuttons leftmonst" onClick={()=>{setShowImage(false)}}>
                     Close
                 </button>
                 <div style={{display:"flex"}}>
